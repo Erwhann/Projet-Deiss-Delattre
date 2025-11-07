@@ -1,2 +1,2 @@
 # Projet-Deiss-Delattre
-Autoo 2I
+Auto 2I

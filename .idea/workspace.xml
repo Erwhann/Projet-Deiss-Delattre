@@ -4,13 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="520a5622-cb31-4c16-8a40-899e30dd6065" name="Changes" comment="" />
+    <list default="true" id="520a5622-cb31-4c16-8a40-899e30dd6065" name="Changes" comment="TEST">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Entretien.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Entretien.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Intervention.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Intervention.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Personne.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Personne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Personnel.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Personnel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Reparation.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Reparation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/TypeIntervention.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/TypeIntervention.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/TypeVehicule.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/TypeVehicule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/modele/Vehicule.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/modele/Vehicule.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="TEST" />
@@ -92,8 +110,17 @@
       <updated>1763990621456</updated>
       <workItem from="1763990626050" duration="640000" />
       <workItem from="1763992277404" duration="856000" />
-      <workItem from="1763994565127" duration="1576000" />
+      <workItem from="1763994565127" duration="3486000" />
     </task>
+    <task id="LOCAL-00001" summary="TEST">
+      <option name="closed" value="true" />
+      <created>1763996697765</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1763996697765</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,5 +136,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="TEST" />
+    <option name="LAST_COMMIT_MESSAGE" value="TEST" />
   </component>
 </project>

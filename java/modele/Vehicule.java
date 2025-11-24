@@ -8,54 +8,49 @@ import java.time.LocalDate;
 public class Vehicule {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 17) // Le VIN fait 17 caractères max
+    private String vin;
 
-    @Column(unique = true, nullable = false)
-    private String immatriculation; // [cite: 231]
+    @Column(length = 10, unique = true)
+    private String immatriculation;
 
-    @Column(unique = true)
-    private String vin; // Numéro de série [cite: 230]
+    private LocalDate dateMiseEnCirculation;
 
-    @Column(name = "date_mise_circulation")
-    private LocalDate dateMiseEnCirculation; // [cite: 232]
+    private int kilometrageActuel;
 
-    @Column(name = "kilometrage_actuel")
-    private int kilometrageActuel; // [cite: 291]
-
-    // --- RELATIONS ---
-
-    // Relation : Un véhicule appartient à un Type de Véhicule
     @ManyToOne
-    @JoinColumn(name = "type_vehicule_id", nullable = false)
+    @JoinColumn(name = "type_id", nullable = false)
     private TypeVehicule typeVehicule;
 
-    // Relation : Un véhicule appartient à un Client [cite: 256]
-    // TODO: Décommenter quand la classe Client sera créée
-    // @ManyToOne
-    // @JoinColumn(name = "client_id", nullable = false)
-    // private Client client;
+    @ManyToOne
+    @JoinColumn(name = "client_id") // Crée la colonne client_id dans la table vehicule
+    private Client proprietaire; // Lien vers la classe Client
 
-    // Constructeur vide requis par JPA
-    public Vehicule() {
-    }
+    // N'oublie pas de mettre à jour le Getter et Setter correspondant !
+    public Client getProprietaire() { return proprietaire; }
+    public void setProprietaire(Client proprietaire) { this.proprietaire = proprietaire; }
 
-    public Vehicule(String immatriculation, TypeVehicule typeVehicule, int kilometrageActuel) {
+
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL)
+    private java.util.List<Intervention> interventions = new java.util.ArrayList<>();
+
+    // --- Constructeurs ---
+    public Vehicule() {}
+
+    public Vehicule(String vin, String immatriculation, LocalDate dateMiseEnCirculation, int kilometrageActuel, TypeVehicule typeVehicule) {
+        this.vin = vin;
         this.immatriculation = immatriculation;
-        this.typeVehicule = typeVehicule;
+        this.dateMiseEnCirculation = dateMiseEnCirculation;
         this.kilometrageActuel = kilometrageActuel;
+        this.typeVehicule = typeVehicule;
     }
 
     // --- Getters et Setters ---
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getVin() { return vin; }
+    public void setVin(String vin) { this.vin = vin; }
 
     public String getImmatriculation() { return immatriculation; }
     public void setImmatriculation(String immatriculation) { this.immatriculation = immatriculation; }
-
-    public String getVin() { return vin; }
-    public void setVin(String vin) { this.vin = vin; }
 
     public LocalDate getDateMiseEnCirculation() { return dateMiseEnCirculation; }
     public void setDateMiseEnCirculation(LocalDate dateMiseEnCirculation) { this.dateMiseEnCirculation = dateMiseEnCirculation; }
@@ -66,6 +61,10 @@ public class Vehicule {
     public TypeVehicule getTypeVehicule() { return typeVehicule; }
     public void setTypeVehicule(TypeVehicule typeVehicule) { this.typeVehicule = typeVehicule; }
 
-    // public Client getClient() { return client; }
-    // public void setClient(Client client) { this.client = client; }
+    public String getProprietaire() { return proprietaire; }
+    public void setProprietaire(String proprietaire) { this.proprietaire = proprietaire; }
+
+    public java.util.List<Intervention> getInterventions() { return interventions; }
+    public void setInterventions(java.util.List<Intervention> interventions) { this.interventions = interventions; }
+
 }

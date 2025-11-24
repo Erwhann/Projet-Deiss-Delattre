@@ -1,6 +1,7 @@
 package modele;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,7 +10,7 @@ public class TypeVehicule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String marque;
@@ -22,100 +23,70 @@ public class TypeVehicule {
     private int nbPortes;
     private int nbPlaces;
     private int puissance;
+    private int cvFiscaux;
 
-    @Column(name = "cv_fiscaux")
-    private int cvFiscaux; // Important pour la formule de prix [cite: 227]
+    @OneToMany(mappedBy = "typeVehicule", cascade = CascadeType.ALL)
+    private List<Vehicule> vehicules = new ArrayList<>();
 
-    // Relation inverse (optionnelle mais pratique) : Un type a plusieurs véhicules
-    @OneToMany(mappedBy = "typeVehicule")
-    private List<Vehicule> vehicules;
+    @ManyToMany
+    @JoinTable(
+            name = "type_vehicule_piece",
+            joinColumns = @JoinColumn(name = "type_id"),
+            inverseJoinColumns = @JoinColumn(name = "piece_id")
+    )
+    private List<Piece> piecesCompatibles = new ArrayList<>();
 
-    public TypeVehicule() {
-    }
+    // Getters et Setters
+    public List<Piece> getPiecesCompatibles() { return piecesCompatibles; }
+    public void setPiecesCompatibles(List<Piece> piecesCompatibles) { this.piecesCompatibles = piecesCompatibles; }
 
-    public TypeVehicule(String marque, String modele, int cvFiscaux) {
+    // --- Constructeurs ---
+    public TypeVehicule() {}
+
+    public TypeVehicule(String marque, String modele, String energie, String boite, int nbPortes, int nbPlaces, int puissance, int cvFiscaux) {
         this.marque = marque;
         this.modele = modele;
+        this.energie = energie;
+        this.boite = boite;
+        this.nbPortes = nbPortes;
+        this.nbPlaces = nbPlaces;
+        this.puissance = puissance;
         this.cvFiscaux = cvFiscaux;
     }
 
     // --- Getters et Setters ---
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getMarque() {
-        return marque;
+    public String getMarque() { return marque; }
+    public void setMarque(String marque) { this.marque = marque; }
 
-    }
-    public void setMarque(String marque) {
-        this.marque = marque;
-    }
+    public String getModele() { return modele; }
+    public void setModele(String modele) { this.modele = modele; }
 
-    public String getModele() {
-        return modele;
-    }
-    public void setModele(String modele) {
-        this.modele = modele;
-    }
+    public String getEnergie() { return energie; }
+    public void setEnergie(String energie) { this.energie = energie; }
 
-    public String getEnergie() {
-        return energie;
-    }
+    public String getBoite() { return boite; }
+    public void setBoite(String boite) { this.boite = boite; }
 
-    public void setEnergie(String energie) {
-        this.energie = energie;
-    }
+    public int getNbPortes() { return nbPortes; }
+    public void setNbPortes(int nbPortes) { this.nbPortes = nbPortes; }
 
-    public String getBoite() {
-        return boite;
-    }
+    public int getNbPlaces() { return nbPlaces; }
+    public void setNbPlaces(int nbPlaces) { this.nbPlaces = nbPlaces; }
 
-    public void setBoite(String boite) {
-        this.boite = boite;
-    }
+    public int getPuissance() { return puissance; }
+    public void setPuissance(int puissance) { this.puissance = puissance; }
 
-    public int getNbPortes() {
-        return nbPortes;
-    }
+    public int getCvFiscaux() { return cvFiscaux; }
+    public void setCvFiscaux(int cvFiscaux) { this.cvFiscaux = cvFiscaux; }
 
-    public void setNbPortes(int nbPortes) {
-        this.nbPortes = nbPortes;
-    }
+    public List<Vehicule> getVehicules() { return vehicules; }
+    public void setVehicules(List<Vehicule> vehicules) { this.vehicules = vehicules; }
 
-    public int getNbPlaces() {
-        return nbPlaces;
+    @Override
+    public String toString() {
+        return marque + " " + modele + " (" + energie + ")";
     }
-    public void setNbPlaces(int nbPlaces) {
-        this.nbPlaces = nbPlaces;
-    }
-
-    public int getPuissance() {
-        return puissance;
-    }
-
-    public void setPuissance(int puissance) {
-        this.puissance = puissance;
-    }
-
-    public int getCvFiscaux() {
-        return cvFiscaux;
-    }
-
-    public void setCvFiscaux(int cvFiscaux) {
-        this.cvFiscaux = cvFiscaux;
-    }
-
-    public List<Vehicule> getVehicules() {
-        return vehicules;
-    }
-
-    public void setVehicules(List<Vehicule> vehicules) {
-        this.vehicules = vehicules;
-    }
-
-    
 }

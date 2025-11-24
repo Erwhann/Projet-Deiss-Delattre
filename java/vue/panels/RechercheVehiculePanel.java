@@ -1,96 +1,78 @@
-package vue.panels;
+package vue;
 
-import gestion.GestionVehicule;
-import gestion.GestionIntervention;
-import modele.Intervention;
-import modele.Vehicule;
+import vue.panels.AjoutVehiculePanel;
+import vue.panels.RechercheVehiculePanel;
+import vue.panels.DashboardPanel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
-public class RechercheVehiculePanel extends JPanel {
+public class MainFrame extends JFrame {
 
-    private JTextField immatField;
-    private JLabel infoVehicule;
+    public MainFrame() {
+        setTitle("Auto2I - Gestion du garage");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 650);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-    private JTable table;
-    private DefaultTableModel tableModel;
+        // ------------------------------------------------------
+        // BARRE DE MENU
+        // ------------------------------------------------------
+        JMenuBar menuBar = new JMenuBar();
 
-    private GestionVehicule gestionVehicule = new GestionVehicule();
-    private GestionIntervention gestionIntervention = new GestionIntervention();
+        // MENU VEHICULES
+        JMenu menuVehicule = new JMenu("Véhicules");
+        JMenuItem itemAjout = new JMenuItem("Ajouter un véhicule");
+        JMenuItem itemRecherche = new JMenuItem("Rechercher un véhicule");
 
-    public RechercheVehiculePanel() {
+        menuVehicule.add(itemAjout);
+        menuVehicule.add(itemRecherche);
+        menuBar.add(menuVehicule);
 
-        setLayout(new BorderLayout(15, 15));
+        // MENU ACCUEIL / TABLEAU DE BORD
+        JMenu menuAccueil = new JMenu("Accueil");
+        JMenuItem itemDashboard = new JMenuItem("Dashboard");
+        menuAccueil.add(itemDashboard);
+        menuBar.add(menuAccueil);
 
-        // ---------------------------
-        // BARRE DE RECHERCHE
-        // ---------------------------
-        JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        immatField = new JTextField(12);
-        JButton rechercher = new JButton("Rechercher");
-        infoVehicule = new JLabel(" ");
+        setJMenuBar(menuBar);
 
-        top.add(new JLabel("Immatriculation : "));
-        top.add(immatField);
-        top.add(rechercher);
+        // ------------------------------------------------------
+        // CONTENU PAR DÉFAUT
+        // ------------------------------------------------------
+        add(new DashboardPanel(), BorderLayout.CENTER);
 
-        add(top, BorderLayout.NORTH);
-        add(infoVehicule, BorderLayout.SOUTH);
+        // ------------------------------------------------------
+        // ACTION : Ajouter un véhicule
+        // ------------------------------------------------------
+        itemAjout.addActionListener(e -> {
+            getContentPane().removeAll();
+            add(new AjoutVehiculePanel(), BorderLayout.CENTER);
+            revalidate();
+            repaint();
+        });
 
-        // ---------------------------
-        // TABLEAU (historique)
-        // ---------------------------
-        tableModel = new DefaultTableModel(
-                new Object[]{"Date", "Km", "Type", "Prix", "Durée", "Description"},
-                0
-        );
-        table = new JTable(tableModel);
+        // ------------------------------------------------------
+        // ACTION : Recherche + Historique
+        // ------------------------------------------------------
+        itemRecherche.addActionListener(e -> {
+            getContentPane().removeAll();
+            add(new RechercheVehiculePanel(), BorderLayout.CENTER);
+            revalidate();
+            repaint();
+        });
 
-        add(new JScrollPane(table), BorderLayout.CENTER);
+        // ------------------------------------------------------
+        // ACTION : Dashboard
+        // ------------------------------------------------------
+        itemDashboard.addActionListener(e -> {
+            getContentPane().removeAll();
+            add(new DashboardPanel(), BorderLayout.CENTER);
+            revalidate();
+            repaint();
+        });
 
-        // Action du bouton
-        rechercher.addActionListener(e -> rechercherVehicule());
-    }
-
-    private void rechercherVehicule() {
-        String immat = immatField.getText().trim().toUpperCase();
-
-        Vehicule v = gestionVehicule.rechercherVehiculeParImmat(immat);
-
-        if (v == null) {
-            infoVehicule.setText("❌ Aucun véhicule trouvé.");
-            tableModel.setRowCount(0);
-            return;
-        }
-
-        infoVehicule.setText(
-                "<html><b>"
-                        + v.getTypeVehicule().getMarque() + " "
-                        + v.getTypeVehicule().getModele()
-                        + "</b> — " + v.getKilometrageActuel() + " km</html>"
-        );
-
-        // HISTORIQUE DES INTERVENTIONS
-        List<Intervention> interventions =
-                gestionIntervention.getInterventionsByVehicule(v);
-
-        tableModel.setRowCount(0); // reset table
-
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        for (Intervention i : interventions) {
-            tableModel.addRow(new Object[]{
-                    df.format(i.getDate()),
-                    i.getKilometrage(),
-                    i.getTypeIntervention().getNom(),
-                    i.getPrixTotal(),
-                    i.getDureeReel(),
-                    i.getDescription()
-            });
-        }
+        setVisible(true);
     }
 }

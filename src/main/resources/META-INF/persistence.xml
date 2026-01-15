@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.1"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd">
+
+    <persistence-unit name="Auto2i" transaction-type="RESOURCE_LOCAL">
+
+
+        <!-- Entités -->
+        <class>modele.Personne</class>
+        <class>modele.Client</class>
+        <class>modele.Personnel</class>
+        <class>modele.Vehicule</class>
+        <class>modele.TypeVehicule</class>
+        <class>modele.Intervention</class>
+        <class>modele.Reparation</class>
+        <class>modele.Entretien</class>
+        <class>modele.Piece</class>
+        <class>modele.TypeIntervention</class>
+
+        <properties>
+            <!-- JDBC avec Jakarta -->
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/auto2i_db?serverTimezone=UTC" />
+            <property name="jakarta.persistence.jdbc.user" value="admin_auto" />
+            <property name="jakarta.persistence.jdbc.password" value="Auto2i_2026" />
+
+
+            <!-- Hibernate -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+
+            <!-- AUTO: update, create-drop, create -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+
+    </persistence-unit>
+</persistence>
